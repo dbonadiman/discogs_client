@@ -47,11 +47,11 @@ raw information received from the API.
     u'...'
 
 ## Artist
-    
+
 Query for an artist using the artist's name:
 
     >>> artist = discogs.Artist('Aphex Twin')
-    >>> print artist
+    >>> print(artist)
     <Artist "...">
     >>> 'name' in artist.data.keys()
     True
@@ -82,7 +82,7 @@ Get a list of `Release`s by this artist:
 Query for a release using its Discogs ID:
 
     >>> release = discogs.Release(1)
-    
+
 ### Special properties
 
 Get the title of this `Release`:
@@ -208,7 +208,7 @@ There may be results that exactly match your query:
 
     >>> s.exactresults
     [...]
-    
+
 Any other results are paginated:
 
     >>> s.results()

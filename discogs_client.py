@@ -1,14 +1,28 @@
 __version_info__ = (1,1,1)
 __version__ = '1.1.1'
 
+import sys
 import requests
 import json
-import urllib
-import httplib
+
+try:
+    import http.client as httplib
+    import urllib.parse as urllib
+    unicode = str
+except ImportError:
+    import httplib
+    import urllib
+
 from collections import defaultdict
+
+
+if sys.version > '3':
+    unicode = str
+
 
 api_uri = 'http://api.discogs.com'
 user_agent = None
+
 
 class DiscogsAPIError(Exception):
     """Root Exception class for Discogs API errors."""
@@ -83,7 +97,7 @@ class APIBase(object):
     @property
     def data(self):
         if self._response.content and self._response.status_code == 200:
-            release_json = json.loads(self._response.content)
+            release_json = json.loads(self._response.text)
             return release_json.get('resp').get(self._uri_name)
         else:
             status_code = self._response.status_code
