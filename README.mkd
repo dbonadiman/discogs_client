@@ -43,8 +43,9 @@ For example, `Artist`s have two convenience properties -- `aliases` and
 remainder of an object's metadata, use the `data` dictionary, which contains the
 raw information received from the API.
 
-    >>> discogs.Artist('Aphex Twin').data['realname']
-    u'...'
+    >>> aphex = discogs.Artist('Aphex Twin').data['realname']
+    >>> print(aphex)
+    Richard David James
 
 ## Artist
 
@@ -87,8 +88,9 @@ Query for a release using its Discogs ID:
 
 Get the title of this `Release`:
 
-    >>> release.title
-    u'...'
+    >>> title = release.title
+    >>> print(title)
+    Stockholm
 
 Get a list of all `Artist`s associated with this `Release`:
 
@@ -139,8 +141,9 @@ Get the key `Release` for this `MasterRelease`:
 
 Get the title of this `MasterRelease`:
 
-    >>> master_release.title
-    u'...'
+    >>> title = master_release.title
+    >>> print(title)
+    Stockholm
     >>> master_release.title == master_release.key_release.title
     True
 

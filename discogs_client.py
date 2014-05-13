@@ -67,7 +67,7 @@ class APIBase(object):
         return '<%s "%s">' % (self.__class__.__name__, self._id)
 
     def __repr__(self):
-        return self.__str__().encode('utf-8')
+        return self.__str__()
 
     def _check_user_agent(self):
         if 'user_agent' in globals() and user_agent is not None:
