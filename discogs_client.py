@@ -6,18 +6,15 @@ import requests
 import json
 
 try:
+    import httplib
+    import urllib
+except ImportError:
     import http.client as httplib
     import urllib.parse as urllib
     unicode = str
-except ImportError:
-    import httplib
-    import urllib
+
 
 from collections import defaultdict
-
-
-if sys.version > '3':
-    unicode = str
 
 
 api_uri = 'http://api.discogs.com'
@@ -82,8 +79,7 @@ class APIBase(object):
         if not self._cached_response:
             if not self._check_user_agent():
                 raise UserAgentError("Invalid or no User-Agent set.")
-            self._cached_response = requests.get(self._uri, params=self._params, headers=self._headers)
-
+            self._cached_response = requests.get(self._uri, params=self._params, headers=self._headers )
         return self._cached_response
 
     @property
@@ -96,8 +92,8 @@ class APIBase(object):
 
     @property
     def data(self):
-        if self._response.content and self._response.status_code == 200:
-            release_json = json.loads(self._response.text)
+        if self._response.status_code == requests.codes.ok and self._response.content:
+            release_json = json.loads(self._response.content.decode("utf-8"))
             return release_json.get('resp').get(self._uri_name)
         else:
             status_code = self._response.status_code
